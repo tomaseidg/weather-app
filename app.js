@@ -1,15 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser"); // To retrieve data from our user
 const request = require("request"); // To interact with the API
-// const skycons = require("skycons");
 const fs = require("fs");
 
 let apiKey = "";
 fs.readFile('api-key.txt', function(err, data) {
-	if (err) {
-		throw err;
-	}
-	apiKey = data;
+    if (err) {
+        throw err;
+    }
+    apiKey = data;
 });
 
 const app = express();
@@ -20,10 +19,16 @@ app.use(express.static("public")); // To put style and images
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // I put into the get method what I want to have directly without any action from the user.
-app.get("/", function(req, res) {
 
-    // var icon = new Skycons({"color": "pink"});
-    // icon.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
+app.get("/", function(req, res) {
+    res.render("geolocation");
+})
+
+
+app.get("/weather", function(req, res) {
+
+    let lat = req.query.lat;
+    let lon = req.query.lon;
 
     let today = new Date();
     let currentDay = today.getDay();
@@ -36,7 +41,8 @@ app.get("/", function(req, res) {
         url: "https://api.openweathermap.org/data/2.5/weather",
         method: "GET",
         qs: {
-            q: "London",
+            lat: lat,
+            lon: lon,
             APPID: apiKey
         }
     };
@@ -56,17 +62,6 @@ app.get("/", function(req, res) {
         });
 
     });
-
-});
-
-// if (navigator.geolocation) {
-// 	navigator.geolocation.getCurrentPosition(function(position) {
-// 		var lat = position.coords.latitude;
-// 		var long = position.coords.longitude;
-// 	})
-// }
-
-app.post("/", function(req, res) {
 
 });
 
