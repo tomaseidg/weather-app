@@ -9,21 +9,58 @@
 
 <body>
     <h1>
-        <%= tempF %> °F</h1>
-    <h2>
+        <%= temp %> °C</h1>
+    <h2 id="description">
         <%= weatherDes %>
     </h2>
     <h2>
         <%= cityName %>
     </h2>
-    <h2></h2>
-    <canvas id="icon1" width="128" height="128"></canvas>
+    <input type="hidden" id="oldIcon" value="<%=oldIcon%>"></input>
+    <canvas id="icon" width="128" height="128"></canvas>
     <script src="/skycons.js">
     </script>
     <script>
-    var icons = new Skycons({ "color": "pink" });
-    icons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
-    icons.play;
+    let oldIcon = document.getElementById("oldIcon").value
+    console.log(oldIcon);
+    let icons = new Skycons({ "color": "pink" });
+    switch (oldIcon) {
+        case "10d":
+        case "10n":
+        case "09d": 
+        case "09n":
+        case "11d": 
+        case "11n":
+        icons.add("icon", Skycons.RAIN);
+        break;
+        case "13d": 
+        case "13n":
+        icons.add("icon", Skycons.SNOW);
+        break;
+        case "01n":
+        icons.add("icon", Skycons.CLEAR_NIGHT);
+        break;
+        case "01d":
+        icons.add("icon", Skycons.CLEAR_DAY);
+        break;
+        case "02d": 
+        icons.add("icon", Skycons.PARTLY_CLOUDY_DAY);
+        break;
+        case "02n": 
+        icons.add("icon", Skycons.PARTLY_CLOUDY_NIGHT);
+        break;
+        case "03d":
+        case "03n":
+        case "04d":
+        case "04n": 
+        icons.add("icon", Skycons.CLOUDY);
+        break;
+        case "50d":
+        case "50n": 
+        icons.add("icon", Skycons.FOG);
+        break;
+    };
+    icons.play();
     </script>
 </body>
 

@@ -34,8 +34,10 @@ app.get("/weather", function(req, res) {
     let currentDay = today.getDay();
     let day = "";
     let weather = "";
-    let temp = "";
+    let tempF = "";
+    let tempC = "";
     let city = "";
+    let icon = "";
 
     let options = {
         url: "https://api.openweathermap.org/data/2.5/weather",
@@ -50,15 +52,19 @@ app.get("/weather", function(req, res) {
     request(options, function(error, response, body) {
         let data = JSON.parse(body);
         weather = data.weather[0].main;
-        temp = data.main.temp;
+        tempK = data.main.temp;
         city = data.name;
+        icon = data.weather[0].icon;
+
+        tempC = Math.round(tempK - 273.15);
 
         // I need to put the render here and not outside because of closures.
 
         res.render("list", {
             weatherDes: weather,
-            tempF: temp,
-            cityName: city
+            temp: tempC,
+            cityName: city,
+            oldIcon: icon
         });
 
     });
