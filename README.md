@@ -8,9 +8,6 @@ A full-featured **Weather Dashboard** built with **Node.js**, **Express**, and *
 
 - Real-time current weather for multiple cities
 - Detailed information: temperature, humidity, wind speed, sunrise/sunset times
-- 5-day weather forecast with icons and color-coded cards
-- Air quality index (AQI) and UV index with advice
-- Interactive weather map for temperature, clouds, precipitation, and wind
 - Fully responsive design for desktops, laptops, tablets, and mobile
 - Beautiful UI with colorful cards and icons for each weather condition
 
@@ -26,7 +23,7 @@ A full-featured **Weather Dashboard** built with **Node.js**, **Express**, and *
 
 1. Clone the repo:  
    ```bash
-   git clone https://github.com/USERNAME/weather-app.git
+   git clone https://github.com/tomaseidg/weather-app
 Install dependencies:
 
 bash
