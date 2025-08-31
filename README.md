@@ -2,6 +2,8 @@
 
 A full-featured **Weather Dashboard** built with **Node.js**, **Express**, and **EJS**, providing real-time weather information for multiple cities (Cairo, Giza, Alexandria). This application fetches data from **OpenWeatherMap API** and displays it in a **modern, responsive UI**.
 
+![Banner](public/images/0.png)
+
 ---
 
 ## Features
@@ -9,13 +11,7 @@ A full-featured **Weather Dashboard** built with **Node.js**, **Express**, and *
 - Real-time current weather for multiple cities
 - Detailed information: temperature, humidity, wind speed, sunrise/sunset times
 - Fully responsive design for desktops, laptops, tablets, and mobile
-- Beautiful UI with colorful cards and icons for each weather condition
-
----
-
-## Screenshots
-
-![Screenshot](screenshot.png)  
+- Beautiful UI with colorful cards and icons for each weather condition 
 
 ---
 
