@@ -58,8 +58,7 @@ OpenLayers (for interactive map)
 
 Font Awesome (icons)
 
-Author
-ThomasLabs © 2025
+---
 
-yaml
-Copy code
+## Author
+ThomasLabs © 2025
