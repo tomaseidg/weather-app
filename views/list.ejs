@@ -1,67 +1,55 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>weather app</title>
-    <link rel="stylesheet" type="text/css" href="/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather Dashboard</title>
+<link rel="stylesheet" href="/css/style.css">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+/>
 </head>
-
 <body>
-    <h1>
-        <%= temp %> °C</h1>
-    <h2 id="description">
-        <%= weatherDes %>
-    </h2>
-    <h2>
-        <%= cityName %>
-    </h2>
-    <input type="hidden" id="oldIcon" value="<%=oldIcon%>"></input>
-    <canvas id="icon" width="128" height="128"></canvas>
-    <script src="/skycons.js">
-    </script>
-    <script>
-    let oldIcon = document.getElementById("oldIcon").value
-    console.log(oldIcon);
-    let icons = new Skycons({ "color": "pink" });
-    switch (oldIcon) {
-        case "10d":
-        case "10n":
-        case "09d": 
-        case "09n":
-        case "11d": 
-        case "11n":
-        icons.add("icon", Skycons.RAIN);
-        break;
-        case "13d": 
-        case "13n":
-        icons.add("icon", Skycons.SNOW);
-        break;
-        case "01n":
-        icons.add("icon", Skycons.CLEAR_NIGHT);
-        break;
-        case "01d":
-        icons.add("icon", Skycons.CLEAR_DAY);
-        break;
-        case "02d": 
-        icons.add("icon", Skycons.PARTLY_CLOUDY_DAY);
-        break;
-        case "02n": 
-        icons.add("icon", Skycons.PARTLY_CLOUDY_NIGHT);
-        break;
-        case "03d":
-        case "03n":
-        case "04d":
-        case "04n": 
-        icons.add("icon", Skycons.CLOUDY);
-        break;
-        case "50d":
-        case "50n": 
-        icons.add("icon", Skycons.FOG);
-        break;
-    };
-    icons.play();
-    </script>
-</body>
+<header>
+    <h1><i class="fas fa-cloud-sun"></i> Weather Dashboard</h1>
+<div style="color: rgb(0, 0, 0);">
+        <h2 style="color: black;"><p id="current-day"></p><p id="current-date"></p></h2>
+</header>
 
+<div class="cards-container">
+    <% weatherData.forEach(city => { %>
+        <div class="weather-card <%= city.weather ? city.weather.toLowerCase() : 'unknown' %>">
+            <h2><%= city.city %></h2>
+            <% if(city.error){ %>
+                <p class="error-message">❌</p>
+            <% } else { %>
+                 <img alt="Weather Icon" class="icons main-icon rotate" src="/images/sunrise.png">
+                <h1 style="font: 40px;"><p><%= city.temp %>°C</p></h1>
+                 <p><strong>Weather:</strong> <%= city.weather %></p>
+                <p><i class="fas fa-tint"></i> Humidity: <%= city.humidity %>%</p>
+                <p><i class="fas fa-wind"></i> Wind: <%= city.wind %> m/s</p>
+                <p><i class="fas fa-sun"></i> Sunrise: <%= city.sunrise %></p>
+                <p><i class="fas fa-moon"></i> Sunset: <%= city.sunset %></p>
+            <% } %>
+        </div>
+    <% }) %>
+</div>
+</div>
+<footer>
+      <p>&copy; 2025 <strong>ThomasLabs</strong>. All rights reserved.</p>
+    </footer>
+
+<script>
+const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+function updateDate() {
+    const today = new Date();
+    document.getElementById("current-day").innerText = days[today.getDay()];
+    document.getElementById("current-date").innerText = `${months[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
+}
+updateDate();
+</script>
+</body>
 </html>

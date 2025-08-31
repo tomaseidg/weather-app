@@ -1,0 +1,84 @@
+:root {
+    --primary-color: #ffffff;
+    --secondary-color: #ffffff;
+    --card-radius: 15px;
+    --shadow: 0 8px 20px rgba(0,0,0,0.15);
+    --text-color: #000000;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #a6dae6, #43aac4);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: var(--text-color);
+}
+
+header h1 {
+    margin: 20px 0 10px 0;
+    font-size: 2rem;
+    color: #1095ca;
+}
+
+h2 {
+     color: #43aac4;
+}
+
+
+.cards-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 10px;
+}
+
+.weather-card {
+    background: rgb(255, 255, 255);
+    border-radius: var(--card-radius);
+    padding: 15px;
+    width: 250px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s;
+}
+
+.weather-card:hover {
+    transform: scale(1.05);
+}
+
+.weather-card.sun {
+    background: linear-gradient(to top, #FFD56B, #FFC93C);
+    color: #333;
+}
+
+.weather-card.clouds {
+    background: linear-gradient(to top, #b0c4de, #778899);
+}
+
+.weather-card.rain {
+    background: linear-gradient(to top, #74ABE2, #556270);
+}
+
+.weather-card.snow {
+    background: linear-gradient(to top, #e0f7fa, #b2ebf2);
+}
+
+.weather-card.unknown {
+    background: rgba(200,200,200,0.5);
+}
+
+.weather-card img {
+    width: 80px;
+    height: 80px;
+}
+
+.weather-card p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+.error-message {
+    color: #ff4444;
+    font-weight: bold;
+}

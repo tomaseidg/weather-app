@@ -1,76 +1,70 @@
 const express = require("express");
-const bodyParser = require("body-parser"); // To retrieve data from our user
-const request = require("request"); // To interact with the API
+const bodyParser = require("body-parser");
+const request = require("request");
 const fs = require("fs");
 
-let apiKey = "";
-fs.readFile('api-key.txt', function(err, data) {
-    if (err) {
-        throw err;
-    }
-    apiKey = data;
-});
+const apiKey = fs.readFileSync('api-key.txt', 'utf8').trim();
 
 const app = express();
-
-app.set("view engine", "ejs"); // To use the template ejs
-
-app.use(express.static("public")); // To put style and images
+app.set("view engine", "ejs");
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// I put into the get method what I want to have directly without any action from the user.
+const cities = [
+    { name: "Cairo", lat: 30.0444, lon: 31.2357 },
+    { name: "Giza", lat: 30.0131, lon: 31.2089 },
+    { name: "Alexandria", lat: 31.2001, lon: 29.9187 }
+];
 
-app.get("/", function(req, res) {
+app.get("/", (req, res) => {
     res.render("geolocation");
-})
-
-
-app.get("/weather", function(req, res) {
-
-    let lat = req.query.lat;
-    let lon = req.query.lon;
-
-    let today = new Date();
-    let currentDay = today.getDay();
-    let day = "";
-    let weather = "";
-    let tempF = "";
-    let tempC = "";
-    let city = "";
-    let icon = "";
-
-    let options = {
-        url: "https://api.openweathermap.org/data/2.5/weather",
-        method: "GET",
-        qs: {
-            lat: lat,
-            lon: lon,
-            APPID: apiKey
-        }
-    };
-
-    request(options, function(error, response, body) {
-        let data = JSON.parse(body);
-        weather = data.weather[0].main;
-        tempK = data.main.temp;
-        city = data.name;
-        icon = data.weather[0].icon;
-
-        tempC = Math.round(tempK - 273.15);
-
-        // I need to put the render here and not outside because of closures.
-
-        res.render("list", {
-            weatherDes: weather,
-            temp: tempC,
-            cityName: city,
-            oldIcon: icon
-        });
-
-    });
-
 });
 
-app.listen(3000, function() {
+app.get("/weather", (req, res) => {
+    let weatherData = [];
+    let completedRequests = 0;
+
+    cities.forEach(city => {
+        const options = {
+            url: "https://api.openweathermap.org/data/2.5/weather",
+            method: "GET",
+            qs: {
+                lat: city.lat,
+                lon: city.lon,
+                APPID: apiKey
+            }
+        };
+
+        request(options, function(error, response, body) {
+            if (error) {
+                weatherData.push({ city: city.name, error: true });
+            } else {
+                const data = JSON.parse(body);
+                if (data.cod !== 200) {
+                    weatherData.push({ city: city.name, error: true });
+                } else {
+                    weatherData.push({
+                        city: city.name,
+                        weather: data.weather[0].main,
+                        description: data.weather[0].description,
+                        temp: Math.round(data.main.temp - 273.15),
+                        humidity: data.main.humidity,
+                        wind: data.wind.speed,
+                        icon: data.weather[0].icon,
+                        sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString(),
+                        sunset: new Date(data.sys.sunset * 1000).toLocaleTimeString()
+                    });
+                }
+            }
+
+            completedRequests++;
+            if (completedRequests === cities.length) {
+                res.render("list", { weatherData });
+            }
+        });
+    });
+});
+
+app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
