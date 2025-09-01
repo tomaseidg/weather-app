@@ -21,8 +21,9 @@ A full-featured **Weather Dashboard** built with **Node.js**, **Express**, and *
    ```bash
    git clone https://github.com/tomaseidg/weather-app
    
-2. Install dependencies:
+2. cd & Install dependencies:
     ```bash
+    cd weather-app
     npm install
     
 3. Add your OpenWeatherMap API key in api-key.txt
