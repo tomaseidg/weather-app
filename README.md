@@ -20,19 +20,22 @@ A full-featured **Weather Dashboard** built with **Node.js**, **Express**, and *
 1. Clone the repo:  
    ```bash
    git clone https://github.com/tomaseidg/weather-app
-Install dependencies:
    
+2. Install dependencies:
+    ```bash
     npm install
     
-Add your OpenWeatherMap API key in api-key.txt
+3. Add your OpenWeatherMap API key in api-key.txt
 
-Run the app:
-
+4. Run the app:
+    ```bash
     node app.js
     
-Open in your browser: http://localhost:3000
+5. Open in your browser: http://localhost:3000
 
-Technologies Used
+---
+
+## Technologies Used
 
 Node.js
 
