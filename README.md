@@ -47,10 +47,6 @@ HTML5 & CSS3 (Responsive Design)
 
 OpenWeatherMap API
 
-Chart.js (for forecast graphs)
-
-OpenLayers (for interactive map)
-
 Font Awesome (icons)
 
 ---
